@@ -19,9 +19,12 @@ func (t MinimaxThinker) Think(gameState cbot.GameState) (bestMove cbot.ValidMove
 
 		// convert into core.board representation
 		board := gameState.Export()
+		logg.LogTo("DEBUG", "board: %v", board.CompactString())
 
 		// generate best move (will be a core.move) -- initially, pick random
 		move := t.generateBestMove(board)
+
+		logg.LogTo("DEBUG", "allValidMoves: %v", allValidMoves)
 
 		// search allValidMoves to find corresponding valid move
 		found, bestValidMoveIndex := cbot.CorrespondingValidMoveIndex(move, allValidMoves)
@@ -60,6 +63,8 @@ func init() {
 }
 
 func main() {
+	logg.LogTo("DEBUG", "HELLO")
+	logg.LogTo("CHECKERSBOT", "HELLO2")
 	checkersBotFlags := cbot.ParseCmdLine()
 	thinker := &MinimaxThinker{}
 	thinker.ourTeamId = checkersBotFlags.Team
