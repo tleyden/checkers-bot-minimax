@@ -1,19 +1,21 @@
-Example bot implementation for [checkers-bot](https://github.com/tleyden/checkers-bot) which makes random moves.
+Bot implementation for [checkers-bot](https://github.com/tleyden/checkers-bot) which uses [minimax](http://en.wikipedia.org/wiki/Minimax) to choose the best move.
 
 # Big Picture
 
-![architecture png](http://cl.ly/image/3S0G0h2U0R2b/Screen%20Shot%202013-10-08%20at%2010.43.00%20PM.png)
+![architecture png](http://cl.ly/image/3i010f3K1Z13/Screen%20Shot%202014-01-04%20at%205.51.28%20PM.png)
+
+# Live Demo
+
+Download the [Checkers with Crowds](https://itunes.apple.com/us/app/id698034787) iOS app and play against Red, which is currently (1/4/14) primarly being powered by the code in this project.
 
 # Install 
 
 First you will need to [install Go 1.1](http://golang.org/doc/install) or later.
 
 ```
-$ go get github.com/tleyden/checkers-bot-random
+$ go get -u -v github.com/tleyden/checkers-bot-random
 $ go get github.com/couchbaselabs/go.assert
 ```
-
-It is also possible to download the latest build of the [OSX binary](http://cbfs-ext.hq.couchbase.com/projects/checkers-bot/checkers-bot-random.mac.gz) directly.
 
 # Validate installation - run tests
 
@@ -26,30 +28,9 @@ $ go test -v
 
 ```
 $ go build
-$ ./checkers-bot-random --team RED --syncGatewayUrl http://foo.com:4984/checkers
+$ ./checkers-bot-minimax --team RED --syncGatewayUrl http://foo.com:4984/checkers
 ```
 
-# Install backend system components
+# Documentation
 
-To get a fully working system, you'll need the following:
-
-* [Couchbase Server](http://www.couchbase.com/download) or [Kurobase hosted Couchbase Server](http://www.kurobase.com)
-
-* [Sync Gateway](https://github.com/couchbase/sync_gateway)
-
-* [Checkers Overlord](https://github.com/apage43/checkers-overlord)
-
-# Install a viewer
-
-[Checkers-iOS](https://github.com/couchbaselabs/Checkers-iOS) is not strictly required, but very useful in order to view the game.
-
-
-# Using a proxy
-
-NOTE: if you want to use a proxy server (useful for debugging), use the following command:
-
-```
-$ http_proxy=http://10.0.0.3:8888 ./checkers-bot-random --team BLUE --syncGatewayUrl http://10.0.0.3:4984/checkers
-```
-
-where 10.0.0.3 is the address where your proxy server and sync gateway is running.  The real address must be used rather than localhost.
+* [Checkers-bot-random]() has more information regarding getting the rest of the system components working (Couchbase Server, etc)
