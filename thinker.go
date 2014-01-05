@@ -19,12 +19,10 @@ func (t MinimaxThinker) Think(gameState cbot.GameState) (bestMove cbot.ValidMove
 
 		// convert into core.board representation
 		board := gameState.Export()
-		logg.LogTo("DEBUG", "board: %v", board.CompactString())
+		logg.LogTo("DEBUG", "Before move %v", board.CompactString(true))
 
 		// generate best move (will be a core.move) -- initially, pick random
 		move := t.generateBestMove(board)
-
-		logg.LogTo("DEBUG", "allValidMoves: %v", allValidMoves)
 
 		// search allValidMoves to find corresponding valid move
 		found, bestValidMoveIndex := cbot.CorrespondingValidMoveIndex(move, allValidMoves)
@@ -36,6 +34,11 @@ func (t MinimaxThinker) Think(gameState cbot.GameState) (bestMove cbot.ValidMove
 			bestMove = allValidMoves[bestValidMoveIndex]
 		}
 
+		// this is just for debugging purposes
+		player := cbot.GetCorePlayer(t.ourTeamId)
+		boardPostMove := board.ApplyMove(player, move)
+		logg.LogTo("DEBUG", "After move %v", boardPostMove.CompactString(true))
+
 		return
 
 	} else {
@@ -46,9 +49,12 @@ func (t MinimaxThinker) Think(gameState cbot.GameState) (bestMove cbot.ValidMove
 }
 
 func (t MinimaxThinker) generateBestMove(board core.Board) core.Move {
+	evalFunc := core.DefaultEvaluationFunction()
 	player := cbot.GetCorePlayer(t.ourTeamId)
-	moves := board.LegalMoves(player)
-	return moves[0]
+	depth := 8 // with 9 moves, I saw cases where it took 5m with no move
+	bestMove, scorePostMove := board.Minimax(player, depth, evalFunc)
+	logg.LogTo("DEBUG", "scorePostMove: %v", scorePostMove)
+	return bestMove
 }
 
 func (t MinimaxThinker) GameFinished(gameState cbot.GameState) (shouldQuit bool) {
@@ -63,8 +69,6 @@ func init() {
 }
 
 func main() {
-	logg.LogTo("DEBUG", "HELLO")
-	logg.LogTo("CHECKERSBOT", "HELLO2")
 	checkersBotFlags := cbot.ParseCmdLine()
 	thinker := &MinimaxThinker{}
 	thinker.ourTeamId = checkersBotFlags.Team
