@@ -15,14 +15,14 @@ Download the [Checkers with Crowds](https://itunes.apple.com/us/app/id698034787)
 First you will need to [install Go 1.1](http://golang.org/doc/install) or later.
 
 ```
-$ go get -u -v github.com/tleyden/checkers-bot-random
+$ go get -u -v github.com/tleyden/checkers-bot-minimax
 $ go get github.com/couchbaselabs/go.assert
 ```
 
 # Validate installation - run tests
 
 ```
-$ cd $GOPATH/github.com/tleyden/checkers-bot-random
+$ cd $GOPATH/github.com/tleyden/checkers-bot-minimax
 $ go test -v
 ```
 
