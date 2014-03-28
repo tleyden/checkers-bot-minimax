@@ -51,7 +51,7 @@ func (t MinimaxThinker) Think(gameState cbot.GameState) (bestMove cbot.ValidMove
 func (t MinimaxThinker) generateBestMove(board core.Board) core.Move {
 	evalFunc := core.DefaultEvaluationFunction()
 	player := cbot.GetCorePlayer(t.ourTeamId)
-	depth := 8 // with 9 moves, I saw cases where it took 5m with no move
+	depth := 6 // with 9 moves, I saw cases where it took 5m with no move
 	bestMove, scorePostMove := board.Minimax(player, depth, evalFunc)
 	logg.LogTo("DEBUG", "scorePostMove: %v", scorePostMove)
 	return bestMove
