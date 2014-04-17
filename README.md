@@ -1,3 +1,5 @@
+[![Build Status](https://drone.io/github.com/tleyden/checkers-bot-minimax/status.png)](https://drone.io/github.com/tleyden/checkers-bot-minimax/latest)
+
 Bot implementation for [checkers-bot](https://github.com/tleyden/checkers-bot) which uses [minimax](http://en.wikipedia.org/wiki/Minimax) to choose the best move.  
 
 The underlying data structures and algorithms are in [checkers-core](https://github.com/tleyden/checkers-core).
